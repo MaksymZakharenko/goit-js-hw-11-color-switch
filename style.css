@@ -1,0 +1,20 @@
+.btn {
+  margin: 40vh;
+  justify-content: center;
+  display: flex;
+}
+.btn2 {
+  margin-left: 100px;
+  background-color: aqua;
+  border: solid 2px;
+  font-size: 50px;
+  font-weight: 900
+
+}
+
+.btnAll {
+   width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  cursor: pointer;
+}
