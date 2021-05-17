@@ -7,41 +7,46 @@ const colors = [
   "#795548",
 ];
 
-const randomIntegerFromInterval = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-const colorsLength = colors.length;
-
+const colorsLength = colors.length - 1;
 const bodyRef = document.querySelector("body");
 const btnRef = document.querySelector(".btn2");
 const startBtn = document.querySelector('button[data-action="start"]');
 const pauseBtn = document.querySelector('button[data-action="pause"]');
 const clearBtn = document.querySelector('button[data-action="clear"]');
 let timerColor = null;
+const randomIntegerFromInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+const btnDisable = () => {
+  startBtn.removeAttribute("disabled");
+  clearInterval(timerColor);
+};
 
 startBtn.addEventListener("click", () => {
   startBtn.setAttribute("disabled", "disabled");
   timerColor = setInterval(() => {
     let randomColor = randomIntegerFromInterval(1, colorsLength);
     bodyRef.style.backgroundColor = colors[randomColor];
-    btnRef.style.backgroundColor = colors[randomColor + 1];
-    pauseBtn.style.backgroundColor = colors[randomColor + 1];
-    clearBtn.style.backgroundColor = colors[randomColor + 1];
+    if (colors[randomColor] == colors.length) {
+      newcolorBtn = colors[randomColor - 2];
+    } else {
+      newcolorBtn = colors[randomColor + 1];
+    }
+
+    btnRef.style.backgroundColor = newcolorBtn;
+    pauseBtn.style.backgroundColor = newcolorBtn;
+    clearBtn.style.backgroundColor = newcolorBtn;
 
     console.log("start");
   }, 500);
 });
 
 pauseBtn.addEventListener("click", () => {
-  startBtn.removeAttribute("disabled");
-  clearInterval(timerColor);
-  console.log("pause!");
+  btnDisable();
 });
 
 clearBtn.addEventListener("click", () => {
-  startBtn.removeAttribute("disabled");
-  clearInterval(timerColor);
+  btnDisable();
   bodyRef.style.backgroundColor = "white";
-  console.log("stop!");
 });
